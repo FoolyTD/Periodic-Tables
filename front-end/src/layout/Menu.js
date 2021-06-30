@@ -17,30 +17,30 @@ function Menu() {
           to="/"
         >
           <div className="sidebar-brand-text mx-3">
-            <span>Periodic Tables</span>
+            {/* <span>Restaurant Name Here</span> */}
           </div>
         </Link>
         <hr className="sidebar-divider my-0" />
         <ul className="nav navbar-nav text-light" id="accordionSidebar">
-          <li className="nav-item">
+          <li key="nav-item-1" className="nav-item">
             <Link className="nav-link" to="/dashboard">
               <span className="oi oi-dashboard" />
               &nbsp;Dashboard
             </Link>
           </li>
-          <li className="nav-item">
+          <li key="nav-item-2" className="nav-item">
             <Link className="nav-link" to="/search">
               <span className="oi oi-magnifying-glass" />
               &nbsp;Search
             </Link>
           </li>
-          <li className="nav-item">
+          <li key="nav-item-3" className="nav-item">
             <Link className="nav-link" to="/reservations/new">
               <span className="oi oi-plus" />
               &nbsp;New Reservation
             </Link>
           </li>
-          <li className="nav-item">
+          <li key="nav-item-4" className="nav-item">
             <Link className="nav-link" to="/tables/new">
               <span className="oi oi-layers" />
               &nbsp;New Table
