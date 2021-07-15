@@ -9,7 +9,7 @@ const controller = require("./tables.controller");
 
 
 
-router.route("/:table_id/seat").put(controller.update).delete(controller.delete);
+router.route("/:table_id/seat").put(controller.seatReservation).delete(controller.removeReservationId);
 
 router.route("/:table_id").get(controller.read);
 
