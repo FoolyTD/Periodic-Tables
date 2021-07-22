@@ -3,8 +3,8 @@
  */
 const service = require("./reservations.service");
 
-//////////////////////////////////////////////////
-/////          MIDDLEWARE PIPELINE          /////
+  ////////////////////////////////////////////////
+ ////          MIDDLEWARE PIPELINE          /////
 ////////////////////////////////////////////////
 
 // checking if a reservation exists and placing it in the res.locals object //
@@ -29,43 +29,27 @@ function hasValidProperties(req, res, next) {
   if (data.status === undefined) {
     data.status = "booked";
   }
-  if (data.first_name === undefined || data.first_name === "") {
-    return next({
-      status: 400,
-      message: "invalid first_name",
-    });
+  // List all of the valid fields
+  const VALID_FIELDS = ["first_name", "last_name", "mobile_number", "reservation_date", "reservation_time", "people"];
+  
+  // if the field is not included, send error with the field
+  for (let field of VALID_FIELDS) {
+    if (data[field] === undefined || (typeof(data[field]) === "number" ? null : data[field].trim() === "")) {
+      return next({
+        status: 400,
+        message: `${field} is required`,
+      });
+    }
   }
-  if (data.last_name === undefined || data.last_name === "") {
-    return next({
-      status: 400,
-      message: "invalid last_name",
-    });
-  }
-  if (data.mobile_number === undefined || data.mobile_number === "") {
-    return next({
-      status: 400,
-      message: "invalid mobile_number",
-    });
-  }
-  if (data.reservation_date === undefined || data.reservation_date === "") {
-    return next({
-      status: 400,
-      message: "invalid reservation_date",
-    });
-  }
-  if (data.reservation_time === undefined || data.reservation_time === "") {
-    return next({
-      status: 400,
-      message: "invalid reservation_time",
-    });
-  }
-  if (data.people === undefined || data.people === 0 || typeof(data.people) != "number") {
+  
+  if (data.people < 1 || typeof(data.people) !== "number") {
     return next({
       status: 400,
       message: "invalid number of people",
     });
   }
-  if (data.reservation_time.length !== 5) {
+  // make sure that reservation time is valid using regex
+  if (data.reservation_time.length !== 5 || data.reservation_time.match(/\D(:)/)) {
     return next({
       status: 400,
       message: "invalid reservation_time",
