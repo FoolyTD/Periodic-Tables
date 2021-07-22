@@ -49,7 +49,7 @@ async function fetchJson(url, options, onCancel) {
  * @returns {Promise<[reservation]>}
  *  a promise that resolves to the newly created reservation.
  */
-async function createReservation(reservation, signal) {
+export async function createReservation(reservation, signal) {
   const url = `${API_BASE_URL}/reservations`;
   const options = {
     method: "POST",
@@ -65,7 +65,7 @@ async function createReservation(reservation, signal) {
  * @returns {Promise<[table]>}
  *  a promise that resolves to the newly created table.
  */
-async function createTable(table, signal) {
+export async function createTable(table, signal) {
   const url = `${API_BASE_URL}/tables`;
   const options = {
     method: "POST",
@@ -76,7 +76,7 @@ async function createTable(table, signal) {
   return await fetchJson(url, options, table);
 }
 
-async function seatReservation(reservation_id, table_id) {
+export async function seatReservation(reservation_id, table_id) {
   const url = `${API_BASE_URL}/tables/${table_id}/seat`;
   const options = {
     method: "PUT",
@@ -86,22 +86,22 @@ async function seatReservation(reservation_id, table_id) {
   return await fetchJson(url, options, {});
 }
 
-async function listTables(signal) {
+export async function listTables(signal) {
   const url = new URL(`${API_BASE_URL}/tables`);
   return await fetchJson(url, { headers, signal }, []);
 }
 
-async function listReservation(reservation_id, signal) {
+export async function listReservation(reservation_id, signal) {
   const url = new URL(`${API_BASE_URL}/reservations/${reservation_id}`);
   return await fetchJson(url, { headers, signal }, []);
 }
 
-async function listTable(table_id, signal) {
+export async function listTable(table_id, signal) {
   const url = new URL(`${API_BASE_URL}/tables/${table_id}`);
   return await fetchJson(url, { headers, signal }, []);
 }
 
-async function freeTable(table_id) {
+export async function freeTable(table_id) {
   const url = `${API_BASE_URL}/tables/${table_id}/seat`;
   const options = {
     method: "DELETE",
@@ -109,7 +109,7 @@ async function freeTable(table_id) {
   return await fetchJson(url, options);
 } 
 
-async function updateReservationStatus(reservation_id, status) {
+export async function updateReservationStatus(reservation_id, status) {
   const url = `${API_BASE_URL}/reservations/${reservation_id}/status`;
   const options = {
     method: "PUT",
@@ -119,7 +119,7 @@ async function updateReservationStatus(reservation_id, status) {
   return await fetchJson(url, options, {});
 }
 
-async function updateReservation(reservation_id, updatedReservation) {
+export async function updateReservation(reservation_id, updatedReservation) {
   const url = `${API_BASE_URL}/reservations/${reservation_id}`;
   const options = {
     method: "PUT",
@@ -129,14 +129,14 @@ async function updateReservation(reservation_id, updatedReservation) {
   return await fetchJson(url, options, updatedReservation);
 }
 
-module.exports = {
-  createReservation,
-  createTable,
-  seatReservation,
-  listTables,
-  listReservation,
-  listTable,
-  freeTable,
-  updateReservationStatus,
-  updateReservation,
-};
+// module.exports = {
+//   createReservation,
+//   createTable,
+//   seatReservation,
+//   listTables,
+//   listReservation,
+//   listTable,
+//   freeTable,
+//   updateReservationStatus,
+//   updateReservation,
+// };
